@@ -5,13 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && npm run build:css",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "build:css": "tailwindcss build src/styles.css -o dist/styles.css"
-  
-      
-    
   },
   "dependencies": {
     "react": "^18.3.1",
