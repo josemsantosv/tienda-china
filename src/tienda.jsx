@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { div } from 'three/examples/jsm/nodes/Nodes.js';
+
 
 const Tienda = () => {
   const [productos, setProductos] = useState([]);
