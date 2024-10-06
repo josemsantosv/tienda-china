@@ -44,7 +44,7 @@ const Tienda = () => {
   }
 
   return (
-    <div className="w-full overflow-x-hidden">
+    <div className="w-full overflow-x-hidden overflow-y-hidden">
       <div className="px-4 py-6">
         <h1 className="mb-6 text-2xl font-bold text-center text-slate-800">Tienda</h1>
 
