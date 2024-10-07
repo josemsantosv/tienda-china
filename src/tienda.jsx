@@ -71,12 +71,7 @@ const Tienda = () => {
               placeholder="Buscar productos o precios..."
             />
 
-            <button
-              className="px-4 py-2 ml-2 text-sm text-white transition-all bg-blue-600 rounded-md shadow-md hover:bg-blue-700"
-              type="button"
-            >
-              Buscar
-            </button>
+        
           </div>
         </div>
 
@@ -88,7 +83,7 @@ const Tienda = () => {
                 <li key={producto.id} className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
                   <h2 className="text-lg font-semibold text-slate-900">{producto.name || 'Sin Título'}</h2>
                   {producto.price !== undefined ? (
-                    <p className="text-slate-700">Precio: {producto.price}</p>
+                    <p className="text-slate-700">Precio: S/.{producto.price}</p>
                   ) : (
                     <p className="text-slate-500">Precio no disponible</p>
                   )}
