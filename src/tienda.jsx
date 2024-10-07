@@ -33,6 +33,7 @@ const Tienda = () => {
   if (!productosCargados) {
     return (
       <div className="flex items-center justify-center h-screen">
+        <h2 className='text-4xl font-bold text-center'>Tienda</h2>
         <button
           className="px-4 py-2 text-sm text-white transition-all bg-green-600 rounded-md shadow-md hover:bg-green-700"
           onClick={fetchData}
@@ -46,7 +47,7 @@ const Tienda = () => {
   return (
     <div className="w-full overflow-x-hidden overflow-y-hidden">
       <div className="px-4 py-6">
-        <h1 className="mb-6 text-2xl font-bold text-center text-slate-800">Tienda</h1>
+        <h1 className="mb-6 text-2xl font-bold text-center ">Tienda</h1>
 
         {/* Input para la búsqueda */}
         <div className="w-full max-w-sm mx-auto">
