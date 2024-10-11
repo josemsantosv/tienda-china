@@ -38,7 +38,7 @@ const Tienda = () => {
     <div className="w-full overflow-x-hidden overflow-y-hidden">
       <div className="px-4 py-6">
         <h1 className="mb-6 text-2xl font-bold text-center">Tienda</h1>
-
+  
         {/* Input para la búsqueda */}
         <div className="w-full max-w-sm mx-auto">
           <div className="relative flex items-center">
@@ -54,7 +54,7 @@ const Tienda = () => {
                 clipRule="evenodd"
               />
             </svg>
-
+  
             <input
               value={busqueda}
               onChange={manejarBusqueda}
@@ -63,29 +63,30 @@ const Tienda = () => {
             />
           </div>
         </div>
-
+  
         {/* Lista de productos filtrados */}
         {busqueda && (
-          <ul className="mt-6 space-y-4">
+          <ul className="grid grid-cols-2 gap-4 mt-6">
             {Array.isArray(productosFiltrados) && productosFiltrados.length > 0 ? (
               productosFiltrados.map((producto) => (
-                <li key={producto.id} className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
-                  <h2 className="text-lg font-semibold text-slate-900">{producto.name || 'Sin Título'}</h2>
+                <li key={producto.id} className="p-3 bg-white border border-gray-200 rounded-lg shadow-sm">
+                  <h2 className="text-sm font-semibold text-slate-900">{producto.name || 'Sin Título'}</h2>
                   {producto.price !== undefined ? (
-                    <p className="text-slate-700">Precio: S/.{producto.price}</p>
+                    <p className="text-sm text-slate-700">Precio: S/.{producto.price}</p>
                   ) : (
-                    <p className="text-slate-500">Precio no disponible</p>
+                    <p className="text-sm text-slate-500">Precio no disponible</p>
                   )}
                 </li>
               ))
             ) : (
-              <li className="text-center text-slate-500">No hay productos disponibles.</li>
+              <li className="col-span-2 text-center text-slate-500">No hay productos disponibles.</li>
             )}
           </ul>
         )}
       </div>
     </div>
   );
+  
 };
 
 export default Tienda;
