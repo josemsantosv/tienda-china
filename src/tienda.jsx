@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Tienda = () => {
   const [productos, setProductos] = useState([]);
@@ -6,17 +6,21 @@ const Tienda = () => {
   const [productosFiltrados, setProductosFiltrados] = useState([]);
   const [productosCargados, setProductosCargados] = useState(false);
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch('https://tienda-api-cd3k.onrender.com/products');
-      const data = await response.json();
-      setProductos(data);
-      setProductosFiltrados(data);
-      setProductosCargados(true);
-    } catch (error) {
-      console.error('Error al cargar productos:', error);
-    }
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://tienda-api-cd3k.onrender.com/products');
+        const data = await response.json();
+        setProductos(data);
+        setProductosFiltrados(data);
+        setProductosCargados(true);
+      } catch (error) {
+        console.error('Error al cargar productos:', error);
+      }
+    };
+
+    fetchData(); // Carga la API al montar el componente
+  }, []); // El array vacío indica que se ejecutará solo al montar el componente
 
   const manejarBusqueda = (e) => {
     const valorBusqueda = e.target.value.toLowerCase();
@@ -30,24 +34,10 @@ const Tienda = () => {
     setProductosFiltrados(productosFiltrados);
   };
 
-  if (!productosCargados) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <h2 className='text-4xl font-bold text-center'>Tienda</h2>
-        <button
-          className="px-4 py-2 text-sm text-white transition-all bg-green-600 rounded-md shadow-md hover:bg-green-700"
-          onClick={fetchData}
-        >
-          Cargar Productos
-        </button>
-      </div>
-    );
-  }
-
   return (
     <div className="w-full overflow-x-hidden overflow-y-hidden">
       <div className="px-4 py-6">
-        <h1 className="mb-6 text-2xl font-bold text-center ">Tienda</h1>
+        <h1 className="mb-6 text-2xl font-bold text-center">Tienda</h1>
 
         {/* Input para la búsqueda */}
         <div className="w-full max-w-sm mx-auto">
@@ -71,8 +61,6 @@ const Tienda = () => {
               className="w-full py-2 pl-10 pr-3 text-sm transition duration-300 bg-white border rounded-md shadow-sm placeholder:text-slate-400 text-slate-700 border-slate-200 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 focus:shadow"
               placeholder="Buscar productos o precios..."
             />
-
-        
           </div>
         </div>
 
