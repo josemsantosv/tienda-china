@@ -9,7 +9,7 @@ const Tienda = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://tienda-api-cd3k.onrender.com/products');
+        const response = await fetchWithRetry('https://tienda-api-cd3k.onrender.com/products', { method: 'GET' });
         const data = await response.json();
         setProductos(data);
         setProductosFiltrados(data);
@@ -19,8 +19,52 @@ const Tienda = () => {
       }
     };
 
-    fetchData(); // Carga la API al montar el componente
-  }, []); // El array vacío indica que se ejecutará solo al montar el componente
+    fetchData(); // 
+  }, []); // 
+
+  async function fetchWithRetry(url, options = {}, retryDelay = 1000, maxRetries = 3) {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      const controller = new AbortController();
+      const { signal } = controller;
+  
+      // Establecer un timeout de 10 segundos
+      const timeout = setTimeout(() => {
+        controller.abort();
+      }, 10000); // 10000 ms = 10 segundos
+  
+      try {
+        const response = await fetch(url, {
+          ...options,
+          signal,
+        });
+  
+        clearTimeout(timeout);
+  
+        // Si la respuesta es exitosa, la devolvemos
+        if (response.ok) {
+          return response;
+        }
+  
+        // Si la respuesta no es exitosa, lanzamos un error para entrar en el catch
+        throw new Error (response.status)
+  
+      } catch (error) {
+        clearTimeout(timeout);
+  
+        // Si el error fue causado por el timeout, informamos del intento de reintento
+     
+  
+        // Si ya alcanzamos el máximo de intentos, lanzamos el error
+        if (attempt === maxRetries) {
+          throw new Error('No se pudo completar la solicitud después de varios intentos.');
+        }
+  
+        // Esperar un poco antes de volver a intentar (retryDelay en milisegundos)
+        await new Promise((resolve) => setTimeout(resolve, retryDelay));
+      }
+    }
+  }
+
 
   const manejarBusqueda = (e) => {
     const valorBusqueda = e.target.value.toLowerCase();
