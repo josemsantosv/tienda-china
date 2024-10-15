@@ -15,10 +15,10 @@ const Tienda = () => {
         setProductos(data);
         setProductosFiltrados(data);
         setProductosCargados(true);
-        setApiStatus('La API respondió correctamente.');
+        setApiStatus('✔ ');
       } catch (error) {
         console.error('Error al cargar productos:', error);
-        setApiStatus('Hubo un error al intentar cargar los productos.'); // Mensaje de error
+        setApiStatus('⁉'); // Mensaje de error
    
       }
     };
