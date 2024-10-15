@@ -5,6 +5,7 @@ const Tienda = () => {
   const [busqueda, setBusqueda] = useState('');
   const [productosFiltrados, setProductosFiltrados] = useState([]);
   const [productosCargados, setProductosCargados] = useState(false);
+  const [apiStatus, setApiStatus] = useState(''); // Nuevo estado para el mensaje
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,8 +15,11 @@ const Tienda = () => {
         setProductos(data);
         setProductosFiltrados(data);
         setProductosCargados(true);
+        setApiStatus('La API respondió correctamente.');
       } catch (error) {
         console.error('Error al cargar productos:', error);
+        setApiStatus('Hubo un error al intentar cargar los productos.'); // Mensaje de error
+   
       }
     };
 
@@ -82,6 +86,7 @@ const Tienda = () => {
     <div className="w-full overflow-x-hidden overflow-y-hidden">
       <div className="px-4 py-6">
         <h1 className="mb-6 text-2xl font-bold text-center">Tienda</h1>
+        {apiStatus && <p>{apiStatus}</p>}
   
         {/* Input para la búsqueda */}
         <div className="w-full max-w-sm mx-auto">
